@@ -12,19 +12,19 @@ export class ProjectsService {
     return this.prisma.project.findMany();
   }
 
-  async create(data: CreateProjectDto) {
-  return this.prisma.project.create({
-    data: {
-      title: data.title,
-      domain: data.domain,
-      description: data.description,
-      techStack: data.techStack,
-      githubLink: data.githubLink,
-      liveLink: data.liveLink,
-      imageUrl: data.imageUrl,
-    },
-  });
-}
+  async create(data: {
+    title: string;
+    domain: string;
+    description: string;
+    techStack: string;
+    githubLink?: string;
+    liveLink?: string;
+    imageUrl?: string;
+  }) {
+    return this.prisma.project.create({
+      data,
+    });
+  }
   async findOne(id: string) {
     const project = await this.prisma.project.findUnique({
       where: { id },
